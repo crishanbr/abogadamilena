@@ -1,0 +1,36 @@
+---
+import { Image } from "astro:assets";
+import SectionTitle from "../SectionTitle.astro";
+
+import ama from "@/assets/ama_profile.jpg";
+import ButtonLink from "../ButtonLink.astro";
+---
+
+<section class="relative container mx-auto px-4 mb-6 flex flex-col text-white">
+  <SectionTitle title="¿Quién soy?" />
+  <!-- soy abogada + imagen -->
+  <div class="flex flex-col justify-center items-center md:flex-row gap-8">
+    <div class="relative w-full max-w-2xl rounded-lg border border-border bg-primary shadow-lg">
+
+      <div class="absolute left-1/2 bottom-0 md:left-auto md:-right-4 md:top-1/2 size-8 -translate-x-1/2 translate-y-1/2 md:translate-x-0 md:-translate-y-1/2 rotate-45 transform border-r border-b md:border-b-0 md:border-t border-border bg-primary"></div>
+      
+      <div class="p-8">
+        <h1 class="text-2xl font-bold font-primary">¡Hola, soy Milena Anchundia!</h1>
+        <p class="mt-4 text-tertiary/75 font-secondary">
+          Brindo asesoría legal con un enfoque personalizado, garantizando respaldo jurídico con ética y responsabilidad. 
+          Cada caso es único y merece atención especial, por lo que me comprometo a ofrecer soluciones efectivas basadas en conocimiento y resultados.
+        </p>
+        <ButtonLink
+          href="/sobre-mi" 
+          text="Sobre Mí" 
+          size="sm" 
+          iconRight="fas fa-arrow-right" 
+          classes="mt-4"
+        />
+      </div>
+    </div>
+    <!-- Imagen ajustada -->
+    <Image class="size-50 rounded-full shadow-lg border-6 border-primary" src={ama} alt="Milena Anchundia" />
+  </div>
+</section>
+

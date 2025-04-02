@@ -1,0 +1,103 @@
+{
+  "seo": {
+    "title": "Abogada Milena Anchundia",
+    "description": "Asesoría legal en derecho de familia, trámites notariales y más. Protegiendo tus derechos con confianza y compromiso.",
+    "keywords": "abogado, derecho de familia, trámites notariales, asesoría legal, protección de derechos",
+    "image": "/uploads/ama_logo.svg"
+  },
+  "social": [
+    {
+      "label": "Facebook",
+      "url": "https://www.facebook.com/EstudioJuridicoMA",
+      "icon": "fab fa-facebook"
+    },
+    {
+      "label": "Instagram",
+      "url": "https://www.instagram.com/EstudioJuridicoMA",
+      "icon": "fab fa-instagram"
+    },
+    {
+      "label": "WhatsApp",
+      "url": "https://wa.me/0992868640",
+      "icon": "fab fa-whatsapp"
+    }
+  ],
+  "contact": {
+    "email": "ab.milena.anchundia@gmail.com",
+    "phone": "593992868640"
+  },
+  "services": [
+    {
+      "title": "Procesos Fiscales",
+      "icon": "fas fa-gavel",
+      "description": "Asesoría y defensa en procesos fiscales y administrativos.",
+      "background": "/src/assets/media/optimizar-tus-procesos-fiscales.jpg",
+      "items": [
+        {
+          "name": "Intimidación"
+        },
+        {
+          "name": "Abuso de confianza"
+        },
+        {
+          "name": "Casos de estafa"
+        },
+        {
+          "name": "Devolución de vehículos"
+        }
+      ]
+    },
+    {
+      "title": "Derecho de Familia",
+      "icon": "fas fa-users",
+      "description": "Asesoría en asuntos familiares como divorcios y tenencia.",
+      "background": "/src/assets/media/derechofamilia.jpg",
+      "items": [
+        {
+          "name": "Divorcios y disolución de unión de hecho"
+        },
+        {
+          "name": "Curaduría para contraer nupcias"
+        },
+        {
+          "name": "Recuperación de menor"
+        },
+        {
+          "name": "Tenencia y régimen de visitas"
+        },
+        {
+          "name": "Pensión alimenticia (rebajas, aumentos, extinción, presunción de paternidad)"
+        }
+      ]
+    },
+    {
+      "title": "Trámites Notariales",
+      "icon": "fas fa-file-signature",
+      "description": "Gestión de documentos notariales y contratos legales.",
+      "background": "/src/assets/media/tramites-notariales.jpg",
+      "items": [
+        {
+          "name": "Asesoramiento en trámites notariales"
+        },
+        {
+          "name": "Posesiones efectivas"
+        },
+        {
+          "name": "Compraventa de vehículos y bienes inmuebles"
+        },
+        {
+          "name": "Levantamiento de patrimonio familiar"
+        },
+        {
+          "name": "Inscripción de adjudicaciones municipales"
+        },
+        {
+          "name": "Poderes especiales y generales"
+        },
+        {
+          "name": "Declaraciones juramentadas"
+        }
+      ]
+    }
+  ]
+}

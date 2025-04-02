@@ -1,0 +1,31 @@
+---
+import { getImage } from "astro:assets";
+
+import myImg from "@/assets/ama_herobg.jpg";
+import ButtonLink from "../ButtonLink.astro";
+
+const img = await getImage({ src: myImg });
+---
+
+<div
+  class="h-screen relative bg-top bg-cover flex flex-col justify-center items-center text-white px-6"
+  style={{ backgroundImage: `url(${img.src})` }}
+>
+  <div class="absolute inset-0 bg-primary/50"></div>
+
+  <div class="relative flex flex-col justify-between items-center max-w-3xl text-center font-secondary">
+    <p class="text-sm uppercase font-semibold tracking-wide">Asesorías y Soluciones legales</p>
+
+    <h1 class="text-4xl md:text-5xl font-bold font-primary leading-tight mt-2">
+      Compromiso y Confianza en <br /> la Defensa de tus Derechos
+    </h1>
+    
+    <ButtonLink
+      href="/servicios" 
+      text="CONOCE MÁS" 
+      iconRight="fas fa-arrow-right" 
+      classes="mt-6" 
+      hover="scale"
+    />
+  </div>
+</div>

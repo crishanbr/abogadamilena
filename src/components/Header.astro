@@ -1,0 +1,109 @@
+---
+import Logo from "@/assets/ama_logo.svg";
+import config from "@/content/config/data.json";
+import { navItems } from "@/utils/data";
+import MobileMenu from "./MobileMenu.astro";
+
+function formatPhoneNumber(number: string) {
+  const match = number.match(/^(\d{3})(\d{2})(\d{3})(\d{4})$/);
+  return match ? `+${match[1]} ${match[2]} ${match[3]} ${match[4]}` : `+${number}`;
+}
+
+const currentUrl = Astro.url.pathname;
+const subUrl = currentUrl.match(/[^\/]+/g);
+---
+
+<header
+  id="header"
+  class="fixed top-0 left-0 right-0 w-full h-fit z-50 bg-transparent transition-all duration-300 ease-in-out"
+>
+  <!-- Topbar -->
+  <div
+    id="topbar"
+    class="bg-primary/40 md:bg-transparent border-b border-border/30 text-white overflow-hidden transition-all duration-300 ease-in-out"
+  >
+    <div class="container mx-auto px-4 flex justify-between items-center text-sm h-10">
+      <!-- Contacto -->
+      <div class="flex h-full items-center space-x-4 pr-6 border-r border-border/30 transition duration-300">
+        <a href={`tel:+${config.contact.phone}`} class="flex items-center hover:text-gray-200 transition duration-300">
+          <i class="fas fa-phone text-white md:text-accent"></i>
+          <span class="hidden md:inline ml-1" set:text={formatPhoneNumber(config.contact.phone)} />
+        </a>
+        <a href={`mailto:${config.contact.email}`} class="flex items-center hover:text-gray-200">
+          <i class="fas fa-envelope text-white md:text-accent"></i>
+          <span class="hidden md:inline ml-1" set:text={config.contact.email} />
+        </a>
+      </div>
+
+      <!-- Redes Sociales -->
+      <div class="flex h-full text-base pl-2 border-l border-border/30">
+        {
+          config.social.map((item) => (
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={item.label}
+              class="flex items-center justify-center w-10 h-full hover:bg-accent transition duration-300 hover:text-white"
+            >
+              <i class={item.icon} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <div id="navbar" class="text-white container mx-auto px-4">
+    <nav class="flex justify-between items-center h-18">
+      <!-- Logo -->
+      <a href="/" class="h-full flex items-center">
+        <Logo id="logo" class="h-12 w-auto transition duration-300" />
+      </a>
+
+      <!-- Menú Desktop -->
+      <div class="hidden md:flex h-full">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class={`h-full flex items-center px-4 hover:border-accent border-b-4 border-transparent transition duration-300 
+            ${currentUrl === item.href || item.href === "/" + subUrl?.[0] || "" ? "font-bold bg-accent text-white" : ""}`}
+            >
+              {item.title}
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Menú Mobile -->
+      <div class="md:hidden h-full flex items-center">
+        <MobileMenu />
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+  const header = document.getElementById("header");
+  const topbar = document.getElementById("topbar");
+  const navbar = document.getElementById("navbar");
+  const topbarHeight = topbar?.offsetHeight || 0;
+  let lastScrollTop = window.scrollY;
+
+  const updateUI = (scrollTop: number) => {
+    const scrolled = scrollTop > 50;
+    topbar?.classList.toggle("border-b", !scrolled);
+    topbar && (topbar.style.height = scrolled ? "0px" : `${topbarHeight}px`);
+    header?.classList.toggle("bg-white", scrolled);
+    header?.classList.toggle("shadow-lg", scrolled);
+    navbar?.classList.replace(scrolled ? "text-white" : "text-primary", scrolled ? "text-primary" : "text-white");
+  };
+
+  updateUI(lastScrollTop);
+  window.addEventListener("scroll", () => updateUI(window.scrollY));
+});
+
+</script>

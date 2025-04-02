@@ -1,0 +1,141 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import SectionTitle from "@/components/SectionTitle.astro";
+import { Image } from "astro:assets";
+import milena from "@/assets/ama_profile.jpg";
+import ButtonLink from "@/components/ButtonLink.astro";
+---
+
+<Layout title="Sobre Mí | Ab. Milena Anchundia">
+  <PageHeader title="Sobre Mí" />
+  
+  <section class="container mx-auto px-4 pb-12 md:pb-16">
+    <SectionTitle title="¿Quién soy?" />
+    
+    <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-center">
+      <!-- Contenido de texto -->
+      <div class="md:col-span-7 lg:pr-8">
+        <h2 class="text-3xl font-primary font-bold text-gray-900 sm:text-4xl">
+          Ab. Milena Anchundia
+        </h2>
+        <div class="h-1 w-20 bg-accent mt-3 mb-6"></div>
+
+        <p class="text-gray-700 text-lg leading-relaxed">
+          Soy abogada con una sólida trayectoria en diversas ramas del derecho, comprometida con la defensa de los derechos y el bienestar de mis clientes. Mi enfoque se basa en la ética, la transparencia y el profesionalismo, asegurando un servicio legal de calidad adaptado a las necesidades de cada persona.
+        </p>
+
+        <p class="mt-6 text-gray-700 text-lg leading-relaxed">
+          A lo largo de mi carrera, he brindado asesoría jurídica integral en asuntos civiles, penales, laborales y
+          administrativos, ofreciendo soluciones estratégicas y personalizadas a mis clientes.
+        </p>
+
+        <p class="mt-4 text-gray-700 text-lg leading-relaxed">
+          Analizo cada caso con detenimiento para proporcionar la mejor orientación y representación legal,
+          comprometida siempre con la excelencia y el máximo rigor profesional.
+        </p>
+        
+        <div class="mt-8 flex flex-col md:flex-row gap-4 text-center">
+          <ButtonLink 
+            href="/servicios" 
+            text="Mis Servicios"
+            iconRight="fas fa-gavel"
+          />
+          
+          <ButtonLink 
+            href="/contacto" 
+            text="Agendar Consulta" 
+            variant="outline"
+            iconRight="fas fa-calendar"
+          />
+        </div>
+      </div>
+      
+      <!-- Imagen -->
+      <div class="relative">
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-28 h-28 bg-accent/10 rounded-sm z-0"></div>
+          <Image 
+            src={milena} 
+            alt="Abogada Milena Anchundia" 
+            class="w-full object-cover rounded-sm shadow-lg relative z-10"
+            loading="eager"
+          />
+          <div class="absolute -bottom-4 -right-4 w-28 h-28 bg-accent/10 rounded-sm z-0"></div>
+        </div>
+        
+        <div class="mt-6 p-4 bg-gray-50 rounded-sm shadow-sm border-l-4 border-accent">
+          <p class="italic text-gray-700">
+            "Mi compromiso es brindar asesoría jurídica de calidad, defendiendo los intereses de mis clientes con 
+            profesionalismo y dedicación."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Nueva sección de formación -->
+  <section class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <SectionTitle title="Formación y Experiencia" />
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div class="bg-white p-6 rounded-sm shadow-sm">
+          <h3 class="text-xl font-bold text-gray-800 flex items-center">
+            <i class="fas fa-graduation-cap mr-3 text-accent"></i>
+            Formación Académica
+          </h3>
+          <ul class="mt-4 space-y-4">
+            <li class="flex">
+              <div class="mr-4 text-accent"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <p class="font-semibold">Abogada de los Tribunales y Juzgados de la República</p>
+                <p class="text-gray-600">Universidad de Guayaquil</p>
+              </div>
+            </li>
+            <li class="flex">
+              <div class="mr-4 text-accent"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <p class="font-semibold">Especialización en Derecho Civil y Mercantil</p>
+                <p class="text-gray-600">Universidad de Especialidades Espíritu Santo</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="bg-white p-6 rounded-sm shadow-sm">
+          <h3 class="text-xl font-bold text-gray-800 flex items-center">
+            <i class="fas fa-briefcase mr-3 text-accent"></i>
+            Experiencia Profesional
+          </h3>
+          <ul class="mt-4 space-y-4">
+            <li class="flex">
+              <div class="mr-4 text-accent"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <p class="font-semibold">Asesora Jurídica Independiente</p>
+                <p class="text-gray-600">2018 - Presente</p>
+              </div>
+            </li>
+            <li class="flex">
+              <div class="mr-4 text-accent"><i class="fas fa-check-circle"></i></div>
+              <div>
+                <p class="font-semibold">Consultora Legal en Firma de Abogados</p>
+                <p class="text-gray-600">2014 - 2018</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="text-center mt-10">
+        <ButtonLink 
+          href="/contacto" 
+          text="Agendar una consulta" 
+          variant="primary" 
+          size="md" 
+          iconRight="arrow-right"
+        />
+      </div>
+    </div>
+  </section>
+</Layout>

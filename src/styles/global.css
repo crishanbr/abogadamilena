@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: hsl(226, 100%, 14%);
+  --color-secondary: hsl(227, 68%, 42%);
+  --color-tertiary: hsl(200, 12%, 95%);
+  --color-accent: hsl(44, 65%, 47%);
+  --color-overlay: oklab(0.29 0 -0.04 / 0.5);
+  --color-border: oklch(0.869 0.022 252.894);
+
+  --font-primary: 'Merriweather', serif;
+  --font-secondary: 'Open Sans', sans-serif; 
+}

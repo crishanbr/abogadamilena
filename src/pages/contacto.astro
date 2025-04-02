@@ -1,0 +1,81 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import PageHeader from "@/components/PageHeader.astro";
+import SectionTitle from "@/components/SectionTitle.astro";
+import config from "@/content/config/data.json";
+---
+
+<Layout title="Contacto">
+  <PageHeader
+    title="Contacto"
+  />
+
+  <div class="container mx-auto px-4 pb-12">
+    <SectionTitle title="¿Tienes alguna pregunta?" />
+    <section class="bg-white p-4 md:p-8 rounded-xs max-w-5xl mx-auto shadow-lg">
+      <h2 class="text-3xl font-bold text-primary underline-heading font-serif mb-6">Contáctame</h2>
+      <form id="contactForm" class="grid md:grid-cols-2 gap-4 md:gap-6">
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Nombre Completo"
+          class="w-full p-4 border-2 border-primary/20 rounded-sm focus:border-[#C4A349] transition-colors"
+          required
+        />
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Correo Electrónico"
+          class="w-full p-4 border-2 border-primary/20 rounded-sm focus:border-[#C4A349] transition-colors"
+          required
+        />
+
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          placeholder="Asunto"
+          class="md:col-span-2 w-full p-4 border-2 border-primary/20 rounded-sm focus:border-[#C4A349] transition-colors"
+          required
+        />
+
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Su Mensaje"
+          class="md:col-span-2 w-full p-4 border-2 border-primary/20 rounded-sm h-32 focus:border-[#C4A349] transition-colors"
+          required></textarea>
+
+        <button
+          id="sendEmail"
+          class="w-full bg-primary text-white py-4 space-x-2 rounded-sm hover:bg-[#C4A349] font-bold transition-colors text-center block cursor-pointer"
+        >
+          <i class="fas fa-paper-plane mr-2"></i>Enviar Mensaje
+        </button>
+        <!-- clear form with icon trash-->
+        <button
+          type="reset"
+          class="w-full bg-primary text-white py-4 space-x-2 rounded-sm hover:bg-[#C4A349] font-bold transition-colors text-center block cursor-pointer"
+        >
+          <i class="fas fa-trash mr-2"></i>Limpiar Formulario
+        </button>
+      </form>
+    </section>
+  </div>
+</Layout>
+
+<script is:inline>
+  document.getElementById("sendEmail").addEventListener("click", function () {
+    var name = encodeURIComponent(document.getElementById("name").value);
+    var email = encodeURIComponent(document.getElementById("email").value);
+    var subject = encodeURIComponent(document.getElementById("subject").value);
+    var message = encodeURIComponent(document.getElementById("message").value);
+
+    var mailtoLink = `mailto:ab.milena.anchundia@gmail.com?subject=${subject}&body=${message} %0D%0A %0D%0A %0D%0AAtentamente,%0D%0A %0D%0A${name}%0D%0A${email}`;
+
+    window.location.href = mailtoLink;
+  });
+</script>

@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  className?: string;
+  descriptionClassName?: string;
+}
+
+const { title, description, className = "", descriptionClassName = "" } = Astro.props;
+---
+
+<div class="w-full h-auto">
+  <h2
+    class={`w-fit md:mx-auto text-3xl md:text-4xl text-left md:text-center font-bold text-primary underline-heading font-serif mb-8 py-10 after:md:left-1/2 after:md:-translate-x-1/2 after:left-0 ${className}`}
+  >
+    {title}
+  </h2>
+  {
+    description && (
+      <p class={`w-fit mx-0 md:mx-auto text-lg opacity-75 text-primary font-serif ${descriptionClassName}`}>
+        {description}
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .underline-heading {
+    position: relative;
+    padding-bottom: 12px;
+  }
+  .underline-heading::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 80px;
+    height: 4px;
+    background-color: var(--color-accent);
+  }
+</style>

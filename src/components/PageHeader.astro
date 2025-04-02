@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import dummy from '@/assets/dummy.jpg'
+import Breadcrumb from './Breadcrumb.astro';
+
+interface Props {
+  title: string;
+  bradecrumb?: boolean;
+  backgroundImage?: ImageMetadata;
+  altText?: string;
+}
+
+const { 
+  title, 
+  bradecrumb = true,
+  backgroundImage = dummy,
+  altText = 'Fondo de página'
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<div class="relative w-full h-72 md:h-84">
+  <Image 
+    src={backgroundImage}
+    alt={altText} 
+    class="w-full h-full object-cover" 
+  />
+  <div class="absolute inset-0 bg-primary/60 flex flex-col space-y-4 items-center justify-center pt-30">
+    <h1 class="text-white uppercase text-3xl md:text-4xl font-bold text-center px-4">
+      {title}
+    </h1>
+
+    {bradecrumb && (
+      <Breadcrumb currentPath={currentPath}/>
+    )}
+  </div>
+</div>

@@ -1,0 +1,50 @@
+---
+import { navItems } from "@/utils/data";
+import config from "@/content/config/data.json";
+import Logo from "@/assets/ama_logo.svg";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-primary text-white py-8 border-t border-border/30">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:justify-between text-center md:text-left">
+      <a href="/" class="mb-6 md:mb-0">
+        <Logo class="h-10 w-fit md:h-12 mx-auto md:mx-0 hover:text-accent hover:scale-105 transition duration-300" />
+      </a>
+      <div class="flex items-center space-x-6">
+        {
+          navItems.map((item) => (
+            <a href={item.href} class="text-white hover:text-accent">
+              {item.title}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="border-t border-border/30 my-6"></div>
+
+    <div class="flex flex-col items-center space-y-4">
+      <!-- Social Icons -->
+      <div class="flex space-x-4">
+        {
+          config.social.map((item) => (
+            <a
+              href={item.url}
+              class="size-8 md:size-12 flex items-center justify-center border border-border/30 rounded-xs hover:bg-accent text-white transition duration-300"
+            >
+              <i class={`text-base md:text-2xl ${item.icon}`} />
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Copyright -->
+      <p class="text-white text-center">
+        &copy;{year} Ab. Milena Anchundia. Desarrollado por <a href="https://crishanbr.vercel.app" class="hover:text-golden font-bold"
+        >CompaDevs</a
+      </p>
+    </div>
+  </div>
+</footer>

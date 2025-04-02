@@ -1,0 +1,65 @@
+---
+interface Props {
+  href: string;
+  text: string;
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'sm' | 'md' | 'lg';
+  iconLeft?: string;
+  iconRight?: string;
+  classes?: string;
+  fullWidth?: boolean;
+  hover?: 'scale' | 'none';
+}
+
+const {
+  href,
+  text,
+  variant = 'primary',
+  size = 'md',
+  iconLeft = '',
+  iconRight = '',
+  classes = '',
+  fullWidth = false,
+  hover = 'none',
+} = Astro.props;
+
+// Configuración de tamaños
+const sizeClasses = {
+  sm: 'px-4 py-2 text-sm',
+  md: 'px-6 py-3 text-base',
+  lg: 'px-8 py-4 text-lg',
+};
+
+// Configuración de variantes
+const variantClasses = {
+  primary: 'bg-accent/75 hover:bg-accent text-black font-bold',
+  secondary: 'bg-secondary/75 hover:bg-secondary text-white font-semibold',
+  outline: 'bg-transparent border-2 border-accent text-accent hover:bg-accent/10 font-semibold',
+};
+
+// Configuración de efectos hover
+const hoverClasses = {
+  scale: 'hover:scale-105',
+  none: '',
+};
+
+// Configuración de ancho completo
+const widthClass = fullWidth ? 'w-full' : 'inline-block';
+
+// Construir la clase final
+const buttonClass = `
+  ${widthClass}
+  ${variantClasses[variant]}
+  ${sizeClasses[size]}
+  ${hoverClasses[hover]}
+  rounded-sm
+  transition-all
+  ${classes}
+`.replace(/\s+/g, ' ').trim();
+---
+
+<a href={href} class={buttonClass}>
+  {iconLeft && <i class={`${iconLeft} mr-2`}></i>}
+  {text}
+  {iconRight && <i class={`${iconRight} ml-2`}></i>}
+</a>

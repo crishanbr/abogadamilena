@@ -1,0 +1,103 @@
+---
+import { navItems } from "@/utils/data";
+import { Image } from "astro:assets";
+import Logo from "@/assets/ama_logo.svg"
+const currentUrl = Astro.url.pathname;
+const subUrl = currentUrl.match(/[^\/]+/g);
+---
+
+<!-- Estructura HTML del drawer -->
+<div class="relative flex md:hidden">
+  <!-- Botón del menú -->
+  <button id="menu-toggle" class="focus:outline-none">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+  </button>
+
+  <!-- Overlay del drawer -->
+  <div id="drawer-overlay" class="fixed inset-0 bg-black/50 z-40 backdrop-blur-xs hidden transition-opacity duration-300"></div>
+
+  <!-- Drawer -->
+  <div
+    id="drawer"
+    class="fixed top-0 right-0 bottom-0 w-72 flex flex-col bg-white shadow-lg transform translate-x-full transition-transform duration-300 ease-in-out z-50"
+  >
+    <!-- Cabecera del drawer -->
+    <div class="flex items-center justify-between p-4 border-b border-border">
+      <Logo class="w-32 text-primary" />
+      <button id="drawer-close" class="text-primary hover:text-gray-900 focus:outline-none">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Contenido del drawer -->
+    <nav class="p-4 space-y-2 overflow-y-auto">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class={`block text-primary font-medium p-4 rounded-sm ${currentUrl === item.href || item.href === "/" + subUrl?.[0] || "" ? "font-black bg-accent text-white" : ""}`}
+          >
+            <i class={`${currentUrl === item.href || item.href === "/" + subUrl?.[0] || "" ? "fas fa-hand-point-right mr-2" : "hidden"}`}></i> {item.title}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = {
+      openMenuBtn: document.getElementById("menu-toggle"),
+      closeMenuBtn: document.getElementById("drawer-close"),
+      drawerMenu: document.getElementById("drawer"),
+      overlayMenu: document.getElementById("drawer-overlay"),
+    };
+
+    const drawer = {
+      open: () => {
+        const { drawerMenu, overlayMenu } = elements;
+        if (!drawerMenu || !overlayMenu) return;
+
+        drawerMenu.classList.replace("translate-x-full", "translate-x-0");
+        overlayMenu.classList.remove("hidden");
+
+        setTimeout(() => {
+          overlayMenu.classList.remove("opacity-0");
+        }, 10);
+
+        document.body.style.overflow = "hidden";
+      },
+
+      close: () => {
+        const { drawerMenu, overlayMenu } = elements;
+        if (!drawerMenu || !overlayMenu) return;
+
+        drawerMenu.classList.replace("translate-x-0", "translate-x-full");
+        overlayMenu.classList.add("opacity-0");
+
+        setTimeout(() => {
+          overlayMenu.classList.add("hidden");
+        }, 300);
+
+        document.body.style.overflow = "";
+      },
+    };
+
+    // Event listeners
+    elements.openMenuBtn?.addEventListener("click", drawer.open);
+    elements.closeMenuBtn?.addEventListener("click", drawer.close);
+    elements.overlayMenu?.addEventListener("click", drawer.close);
+    elements.drawerMenu?.addEventListener("click", (e) => e.stopPropagation());
+
+    // Cerrar el drawer al presionar Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && elements.drawerMenu && !elements.drawerMenu.classList.contains("translate-x-full")) {
+        drawer.close();
+      }
+    });
+  });
+</script>

@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { Image } from "astro:assets";
+import PageHeader from "@/components/PageHeader.astro";
+import courtPng from "@/assets/court-png.gif";
+import ButtonLink from "@/components/ButtonLink.astro";
+---
+
+<Layout>
+  <PageHeader title="Página no encontrada" />
+  <div class="bg-tertiary text-primary font-secondary flex flex-1 p-4 items-center justify-center">
+    <div class="text-center bg-white px-4 pb-6 md:p-8 rounded-sm shadow-lg">
+      <Image
+        src={courtPng}
+        alt="Corte del internet"
+        class="w-32 h-auto mx-auto"
+        width={128}
+        height={128}
+      />
+      <h1 class="text-6xl font-bold mt-4 font-primary">404</h1>
+      <p class="text-xl mt-2">Esta página ha sido declarada <span class="font-semibold">inexistente</span> en la corte del internet.</p>
+      <p class="mt-4 text-secondary italic">"El desconocimiento de la URL no exime de su inexistencia"</p>
+      <ButtonLink href="/" text="Regresar al inicio" classes="mt-6" iconLeft="fas fa-home" size="sm" />
+    </div>
+  </div>
+</Layout>
