@@ -126,7 +126,7 @@ const image = getImageSrc(post.data.image);
           <div class="sticky top-24">
             <div class="flex flex-col items-center gap-4">
               <span class="text-sm text-gray-500 font-medium">Compartir</span>
-              <ShareButtons url={Astro.url} title={post.data.title} />
+              <ShareButtons url={Astro.request.url} title={post.data.title} />
             </div>
           </div>
         </div>
@@ -139,7 +139,7 @@ const image = getImageSrc(post.data.image);
           <div class="md:hidden mt-10 pb-6 border-b border-gray-200">
             <p class="text-center text-gray-500 font-medium mb-4">Compartir este artículo</p>
             <div class="flex justify-center gap-4">
-              <ShareButtons url={Astro.url} title={post.data.title} />
+              <ShareButtons url={Astro.request.url} title={post.data.title} />
             </div>
           </div>
 

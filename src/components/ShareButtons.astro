@@ -57,26 +57,22 @@ const shareLinks = [
 </button>
 
 <script is:inline>
-  const copyButtons = document.querySelectorAll('#copy-link-btn');
-  
-  copyButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const url = window.location.href;
-      
-      navigator.clipboard.writeText(url).then(() => {
-        const icon = button.querySelector('#copy-icon');
-        const tooltip = button.querySelector('#copy-tooltip');
-        
-        icon.classList.remove('fa-link');
-        icon.classList.add('fa-check');
-        tooltip.classList.remove('hidden');
-        
-        setTimeout(() => {
-          icon.classList.remove('fa-check');
-          icon.classList.add('fa-link');
-          tooltip.classList.add('hidden');
-        }, 2000);
-      });
+  document.getElementById("copy-link-btn").addEventListener("click", function () {
+    const url = window.location.href;
+
+    navigator.clipboard.writeText(url).then(() => {
+      const icon = document.getElementById("copy-icon");
+      const tooltip = document.getElementById("copy-tooltip");
+
+      icon.classList.replace("fa-link", "fa-check");
+      tooltip.classList.remove("hidden");
+
+      setTimeout(() => {
+        icon.classList.replace("fa-check", "fa-link");
+        tooltip.classList.add("hidden");
+      }, 2000);
+    }).catch(() => {
+      alert("No se pudo copiar el enlace.");
     });
   });
 </script>
