@@ -8,7 +8,7 @@ const shareLinks = [
   {
     name: 'Facebook',
     icon: 'fab fa-facebook-f',
-    url: `https://www.facebook.com/sharer/sharer.php?u='${encodedUrl}'`,
+    url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
     color: 'bg-[#3b5998] hover:bg-[#2d4373]'
   },
   {
@@ -71,8 +71,6 @@ const shareLinks = [
         icon.classList.replace("fa-check", "fa-link");
         tooltip.classList.add("hidden");
       }, 2000);
-    }).catch(() => {
-      alert("No se pudo copiar el enlace.");
     });
   });
 </script>
