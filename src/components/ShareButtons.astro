@@ -1,0 +1,84 @@
+---
+const { url, title } = Astro.props;
+
+const fullUrl = url.toString().startsWith('http') ? url : `https://${Astro.request.headers.get('host')}${url}`;
+
+const encodedUrl = encodeURIComponent(fullUrl);
+const encodedTitle = encodeURIComponent(title);
+
+const shareLinks = [
+  {
+    name: 'Facebook',
+    icon: 'fab fa-facebook-f',
+    url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    color: 'bg-[#3b5998] hover:bg-[#2d4373]'
+  },
+  {
+    name: 'X',
+    icon: 'fab fa-x-twitter',
+    url: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+    color: 'bg-[#444] hover:bg-[#000]'
+  },
+  {
+    name: 'LinkedIn',
+    icon: 'fab fa-linkedin-in',
+    url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    color: 'bg-[#0077b5] hover:bg-[#005582]'
+  },
+  {
+    name: 'WhatsApp',
+    icon: 'fab fa-whatsapp',
+    url: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+    color: 'bg-[#25D366] hover:bg-[#1da851]'
+  }
+];
+---
+
+{shareLinks.map((link) => (
+  <a
+    href={link.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Compartir en ${link.name}`}
+    class={`w-10 h-10 rounded-full ${link.color} text-white flex items-center justify-center transition-transform hover:scale-110`}
+  >
+    <i class={link.icon}></i>
+  </a>
+))}
+
+<button
+  id="copy-link-btn"
+  class="w-10 h-10 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center justify-center transition-transform hover:scale-110 relative cursor-pointer"
+  aria-label="Copiar enlace"
+>
+  <i id="copy-icon" class="fas fa-link"></i>
+  
+  <span id="copy-tooltip" class="absolute hidden -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded whitespace-nowrap">
+    ¡Copiado!
+  </span>
+</button>
+
+<script is:inline>
+  const copyButtons = document.querySelectorAll('#copy-link-btn');
+  
+  copyButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const url = window.location.href;
+      
+      navigator.clipboard.writeText(url).then(() => {
+        const icon = button.querySelector('#copy-icon');
+        const tooltip = button.querySelector('#copy-tooltip');
+        
+        icon.classList.remove('fa-link');
+        icon.classList.add('fa-check');
+        tooltip.classList.remove('hidden');
+        
+        setTimeout(() => {
+          icon.classList.remove('fa-check');
+          icon.classList.add('fa-link');
+          tooltip.classList.add('hidden');
+        }, 2000);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,221 @@
+---
+import ButtonLink from '@/components/ButtonLink.astro';
+import ShareButtons from '@/components/ShareButtons.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getReadingTime } from '@/utils/reading-time';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  const sortedPosts = posts.sort((a, b) => 
+    new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
+  );
+
+  return posts.map((post, index) => {
+    const prevPost = sortedPosts[index - 1];
+    const nextPost = sortedPosts[index + 1];
+    return {
+      params: { id: post.id },
+      props: { 
+        post,
+        prevPost: prevPost ? {
+          id: prevPost.id,
+          title: prevPost.data.title,
+        } : null,
+        nextPost: nextPost ? {
+          id: nextPost.id,
+          title: nextPost.data.title,
+        } : null,
+      },
+    }
+  });
+}
+
+const { post, prevPost, nextPost } = Astro.props;
+const { Content } = await render(post);
+
+const readingTime = getReadingTime(post.body || '');
+---
+
+<Layout title={post.data.title}>
+  <!-- Hero Image with Parallax Effect -->
+  <div class="relative w-full h-72 md:h-96 lg:h-108 overflow-hidden">
+    <img 
+      src={post.data.image} 
+      alt={post.data.title} 
+      class="w-full h-full object-cover" 
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-primary/30 to-primary/80 backdrop-blur-[2px]"></div>
+  </div>
+
+  <!-- Article Header Container -->
+  <div class="container mx-auto px-4 relative">
+    <!-- Article Card that overlaps the hero image -->
+    <div class="bg-white rounded-lg shadow-xl -mt-20 md:-mt-32 mb-12 max-w-4xl mx-auto">
+      <div class="p-6 md:p-10">
+        <!-- Category and Date -->
+        <div class="flex flex-wrap items-center gap-4 mb-4 text-sm">
+          <span class="inline-flex items-center bg-accent/10 text-accent px-3 py-1 rounded-full font-medium">
+            <i class="fas fa-folder mr-2"></i>
+            {post.data.category || "Artículo"}
+          </span>
+          <span class="text-gray-500 flex items-center">
+            <i class="fas fa-calendar-alt mr-2"></i>
+            {post.data.pubDate.toLocaleDateString()}
+            <!-- {post.data.pubDate ? formatDate(post.data.date) : "Sin fecha"} -->
+          </span>
+          <span class="text-gray-500 flex items-center">
+            <i class="fas fa-clock mr-2"></i>
+            {readingTime || "5 min lectura"}
+          </span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          {post.data.title}
+        </h1>
+
+        <!-- {post.data.author && (
+          <div class="flex items-center mb-8">
+            <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-4">
+              {post.data.authorImage ? (
+                <img src={post.data.authorImage} alt={post.data.author} class="w-full h-full rounded-full object-cover" />
+              ) : (
+                <i class="fas fa-user text-gray-400 text-xl"></i>
+              )}
+            </div>
+            <div>
+              <p class="font-medium text-gray-900">{post.data.author}</p>
+              {post.data.authorTitle && <p class="text-sm text-gray-500">{post.data.authorTitle}</p>}
+            </div>
+          </div>
+        )} -->
+
+        <!-- Tags -->
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mb-8">
+            {post.data.tags.map((tag) => (
+              <a 
+                href={`/blog/tag/${tag}`} 
+                class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 hover:bg-accent/20 transition-colors duration-200"
+              >
+                #{tag}
+              </a>
+            ))}
+          </div>
+        )}
+
+        {post.data.description && (
+          <blockquote class="border-l-4 border-accent pl-4 italic text-lg text-gray-700 my-6">
+            {post.data.description}
+          </blockquote>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 pb-16">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-7 gap-8">
+        <div class="hidden md:block md:col-span-1">
+          <div class="sticky top-24">
+            <div class="flex flex-col items-center gap-4">
+              <span class="text-sm text-gray-500 font-medium">Compartir</span>
+              <ShareButtons url={Astro.url} title={post.data.title} />
+            </div>
+          </div>
+        </div>
+
+        <article class="md:col-span-6">
+          <div class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-700 prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg">
+            <Content />
+          </div>
+
+          <div class="md:hidden mt-10 pb-6 border-b border-gray-200">
+            <p class="text-center text-gray-500 font-medium mb-4">Compartir este artículo</p>
+            <div class="flex justify-center gap-4">
+              <ShareButtons url={Astro.url} title={post.data.title} />
+            </div>
+          </div>
+
+          <!-- Author Bio (if available) -->
+          <!-- {post.data.authorBio && (
+            <div class="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-100">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                  {post.data.authorImage ? (
+                    <img src={post.data.authorImage} alt={post.data.author} class="w-full h-full rounded-full object-cover" />
+                  ) : (
+                    <i class="fas fa-user text-gray-400 text-2xl"></i>
+                  )}
+                </div>
+                <div>
+                  <h3 class="font-bold text-lg">{post.data.author}</h3>
+                  {post.data.authorTitle && <p class="text-gray-600">{post.data.authorTitle}</p>}
+                </div>
+              </div>
+              <p class="text-gray-700">{post.data.authorBio}</p>
+            </div>
+          )} -->
+
+          <!-- Related Posts (if available) -->
+          <!-- {post.data.relatedPosts && post.data.relatedPosts.length > 0 && (
+            <div class="mt-12">
+              <h3 class="text-2xl font-bold mb-6">Artículos relacionados</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {post.data.relatedPosts.map((relatedPost) => (
+                  <a href={`/blog/${relatedPost.id}`} class="group">
+                    <div class="bg-white border border-gray-100 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                      <img 
+                        src={relatedPost.image} 
+                        alt={relatedPost.title} 
+                        class="w-full h-40 object-cover" 
+                      />
+                      <div class="p-4">
+                        <h4 class="font-semibold group-hover:text-accent transition-colors">{relatedPost.title}</h4>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )} -->
+        </article>
+      </div>
+
+      <div class="mt-12 flex flex-col sm:flex-row justify-between text-center gap-4">
+        {prevPost ? (
+          <ButtonLink 
+            href={`/blog/${prevPost.id}`} 
+            text="Artículo anterior"
+            variant="outline"
+            size="sm"
+            iconLeft="fas fa-arrow-left"
+          />
+        ) : (
+          <div></div>
+        )}
+        
+        <ButtonLink 
+          href="/blog" 
+          text="Todos los artículos"
+          variant="primary"
+          size="sm"
+        />
+        
+        {nextPost ? (
+          <ButtonLink 
+            href={`/blog/${nextPost.id}`} 
+            text="Siguiente artículo"
+            variant="outline"
+            size="sm"
+            iconRight="fas fa-arrow-right"
+          />
+        ) : (
+          <div></div>
+        )}
+      </div>
+    </div>
+  </div>
+</Layout>

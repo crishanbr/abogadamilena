@@ -1,0 +1,43 @@
+---
+const { page } = Astro.props;
+---
+
+<nav class="flex flex-col sm:flex-row items-center justify-between w-full gap-4 my-8">
+  {page.url.prev ? (
+    <a 
+      href={page.url.prev}
+      class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center transition-colors group"
+    >
+      <i class="fas fa-arrow-left mr-2 text-gray-400 group-hover:text-accent transition-colors"></i>
+      <span>Posts anteriores</span>
+    </a>
+  ) : (
+    <span class="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-400 cursor-not-allowed">
+      <i class="fas fa-arrow-left mr-2"></i>
+      <span>Posts anteriores</span>
+    </span>
+  )}
+
+  <div class="flex items-center justify-center">
+    <div class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 rounded-lg">
+      <span class="font-medium">Página</span>
+      <span class="mx-2 px-3 py-1 bg-accent/10 text-accent rounded-md font-bold">{page.currentPage}</span>
+      <span class="font-medium">de {page.lastPage}</span>
+    </div>
+  </div>
+
+  {page.url.next ? (
+    <a 
+      href={page.url.next}
+      class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center transition-colors group"
+    >
+      <span>Posts siguientes</span>
+      <i class="fas fa-arrow-right ml-2 text-gray-400 group-hover:text-accent transition-colors"></i>
+    </a>
+  ) : (
+    <span class="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg text-gray-400 cursor-not-allowed">
+      <span>Posts siguientes</span>
+      <i class="fas fa-arrow-right ml-2"></i>
+    </span>
+  )}
+</nav>
