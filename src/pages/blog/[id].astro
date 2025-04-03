@@ -4,6 +4,7 @@ import ShareButtons from '@/components/ShareButtons.astro';
 import Layout from '@/layouts/Layout.astro';
 import getImageSrc from '@/utils/getImageSrc';
 import { getReadingTime } from '@/utils/reading-time';
+import { formatDate } from '@/utils/utils';
 import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 
@@ -66,8 +67,7 @@ const image = getImageSrc(post.data.image);
           </span>
           <span class="text-gray-500 flex items-center">
             <i class="fas fa-calendar-alt mr-2"></i>
-            {post.data.pubDate.toLocaleDateString()}
-            <!-- {post.data.pubDate ? formatDate(post.data.date) : "Sin fecha"} -->
+            {formatDate(post.data.pubDate)}
           </span>
           <span class="text-gray-500 flex items-center">
             <i class="fas fa-clock mr-2"></i>
