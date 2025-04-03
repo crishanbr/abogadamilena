@@ -1,16 +1,14 @@
 ---
 const { url, title } = Astro.props;
 
-const fullUrl = url.toString().startsWith('http') ? url : `https://${Astro.request.headers.get('host')}${url}`;
-
-const encodedUrl = encodeURIComponent(fullUrl);
+const encodedUrl = encodeURIComponent(url);
 const encodedTitle = encodeURIComponent(title);
 
 const shareLinks = [
   {
     name: 'Facebook',
     icon: 'fab fa-facebook-f',
-    url: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
+    url: `https://www.facebook.com/sharer/sharer.php?u='${encodedUrl}'`,
     color: 'bg-[#3b5998] hover:bg-[#2d4373]'
   },
   {
