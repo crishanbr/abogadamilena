@@ -2,7 +2,9 @@
 import ButtonLink from '@/components/ButtonLink.astro';
 import ShareButtons from '@/components/ShareButtons.astro';
 import Layout from '@/layouts/Layout.astro';
+import getImageSrc from '@/utils/getImageSrc';
 import { getReadingTime } from '@/utils/reading-time';
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -36,16 +38,18 @@ const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await render(post);
 
 const readingTime = getReadingTime(post.body || '');
+const image = getImageSrc(post.data.image);
 ---
 
 <Layout title={post.data.title}>
   <!-- Hero Image with Parallax Effect -->
   <div class="relative w-full h-72 md:h-96 lg:h-108 overflow-hidden">
-    <img 
+    <!-- <img 
       src={post.data.image} 
       alt={post.data.title} 
       class="w-full h-full object-cover" 
-    />
+    /> -->
+    <Image src={image} alt={post.data.title} class="w-full h-full object-cover" />
     <div class="absolute inset-0 bg-gradient-to-b from-primary/30 to-primary/80 backdrop-blur-[2px]"></div>
   </div>
 
