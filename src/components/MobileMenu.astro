@@ -49,7 +49,7 @@ const subUrl = currentUrl.match(/[^\/]+/g);
   </div>
 </div>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("astro:page-load", () => {
     const elements = {
       openMenuBtn: document.getElementById("menu-toggle"),
       closeMenuBtn: document.getElementById("drawer-close"),
